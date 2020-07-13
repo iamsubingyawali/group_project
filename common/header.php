@@ -135,7 +135,7 @@
 					<div class="profile">
 						<ul>
 							<li><a href="profile.php">Profile</a></li>
-							<li><a href="notifications.php">Notifications</a></li>
+							<li><a href="#">Notifications</a></li>
 							<li><a href="login">LogOut</a></li>
 						</ul>
 					</div>
