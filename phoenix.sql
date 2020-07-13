@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 10, 2020 at 04:35 PM
+-- Generation Time: Jul 13, 2020 at 12:05 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `phoenix`
 --
+CREATE DATABASE IF NOT EXISTS `phoenix` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `phoenix`;
 
 -- --------------------------------------------------------
 
@@ -43,7 +45,7 @@ CREATE TABLE `admins` (
 
 INSERT INTO `admins` (`admin_id`, `username`, `password`, `firstname`, `surname`, `email`) VALUES
 (1, 'admin', '$2y$10$j7EjJnYGCHTFmoBDZ.lvV.UvpDoWq3.GiQiTLP/4PdyzUOiLBDBiS', 'Admin', 'Admin', 'admin@admin.com'),
-(2, 'subinA', '$2y$10$FySjfHZfaujBgdQmtDOHlOT3GAaLYRVOhbQqb4dcfgrYqRh8afP/S', 'Subin', 'Gyawali', 'subingyawali@gmail.com');
+(4, 'subin', '$2y$10$duOPvEhRBYAQV/8sh3Hx0Omd2IknvLUVrFqostchzMV19jyvm2QYK', 'Subin', 'Gyawali', 'subin@admin.com');
 
 -- --------------------------------------------------------
 
@@ -58,18 +60,6 @@ CREATE TABLE `announcements` (
   `course_id` int(10) NOT NULL,
   `stf_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `announcements`
---
-
-INSERT INTO `announcements` (`ann_id`, `announcement`, `date`, `course_id`, `stf_id`) VALUES
-(1, 'Content Added', '2020-02-03 14:07:58', 8, 20002),
-(2, 'Files Uploaded', '2020-02-03 14:42:04', 8, 20002),
-(3, 'Assessment Added', '2020-02-03 14:46:58', 8, 20002),
-(4, 'Content Added', '2020-02-06 14:33:33', 18, 20002),
-(5, 'Content Added', '2020-02-06 14:33:33', 18, 20002),
-(6, 'Content Added', '2020-02-06 14:33:33', 18, 20002);
 
 -- --------------------------------------------------------
 
@@ -86,13 +76,6 @@ CREATE TABLE `assessments` (
   `stf_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `assessments`
---
-
-INSERT INTO `assessments` (`assess_id`, `description`, `deadline`, `file`, `course_id`, `stf_id`) VALUES
-(7, 'This is First Term Assignment. Project Brief is attached below. Please Read Carefully and complete the assignment within time.', '2020-02-29 12:59:59', 'group3_report.pdf', 8, 20002);
-
 -- --------------------------------------------------------
 
 --
@@ -102,32 +85,10 @@ INSERT INTO `assessments` (`assess_id`, `description`, `deadline`, `file`, `cour
 CREATE TABLE `attendance` (
   `attend_id` int(10) NOT NULL,
   `date` date NOT NULL,
-  `status` varchar(15) NOT NULL,
+  `status` varchar(15) NOT NULL DEFAULT 'Absent',
   `course_id` int(10) NOT NULL,
   `std_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `attendance`
---
-
-INSERT INTO `attendance` (`attend_id`, `date`, `status`, `course_id`, `std_id`) VALUES
-(21, '2020-02-06', 'Present', 8, 20202),
-(22, '2020-02-06', 'Present', 8, 20203),
-(23, '2020-02-06', 'Present', 8, 20207),
-(24, '2020-02-06', 'Absent', 8, 20204),
-(25, '2020-02-07', 'Present', 8, 20204),
-(26, '2020-02-07', 'Present', 8, 20202),
-(27, '2020-02-07', 'Present', 8, 20203),
-(28, '2020-02-07', 'Present', 8, 20207),
-(29, '2020-02-05', 'Present', 8, 20207),
-(30, '2020-02-05', 'Absent', 8, 20204),
-(31, '2020-02-05', 'Absent', 8, 20202),
-(32, '2020-02-05', 'Absent', 8, 20203),
-(33, '2020-02-08', 'Absent', 8, 20204),
-(34, '2020-02-08', 'Absent', 8, 20202),
-(35, '2020-02-08', 'Absent', 8, 20203),
-(36, '2020-02-08', 'Absent', 8, 20207);
 
 -- --------------------------------------------------------
 
@@ -145,18 +106,12 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`course_id`, `title`) VALUES
-(1, 'Computer Networks'),
-(2, 'Operating Systems'),
-(3, 'Modern Networks'),
-(5, 'Computer Communications'),
-(6, 'Computer Systems'),
-(8, 'Web Programming'),
-(9, 'Database'),
-(11, 'Group Project'),
-(12, 'Problem Solving'),
-(14, 'Database 2'),
-(18, 'Web Development'),
-(21, 'Accounting');
+(23, 'Computer Networks'),
+(24, 'Operating Systems'),
+(25, 'Database'),
+(26, 'Modern Networks'),
+(27, 'Web Programming'),
+(28, 'Web Development');
 
 -- --------------------------------------------------------
 
@@ -170,20 +125,6 @@ CREATE TABLE `course_topics` (
   `name` varchar(255) NOT NULL,
   `course_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `course_topics`
---
-
-INSERT INTO `course_topics` (`topic_id`, `topic_num`, `name`, `course_id`) VALUES
-(1, 1, 'Server Setup and PHP Introduction', 8),
-(2, 2, 'Control Structures and Loops', 8),
-(3, 3, 'Functions', 8),
-(4, 4, 'Arrays and User Input', 8),
-(5, 5, 'Introduction to MySQL', 8),
-(6, 6, 'Server Setup and PHP Introduction', 8),
-(28, 7, 'Testing', 8),
-(29, 1, 'Introduction', 18);
 
 -- --------------------------------------------------------
 
@@ -199,25 +140,6 @@ CREATE TABLE `files` (
   `topic_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `files`
---
-
-INSERT INTO `files` (`file_id`, `name`, `stf_id`, `course_id`, `topic_id`) VALUES
-(9, '13-proposal-marking grid (2).doc', 20002, 8, 1),
-(10, 'Copy of Gantt example (gantt(1).xls)-1.xls', 20002, 8, 1),
-(11, 'Introduction-to-project-management(1).ppt', 20002, 8, 1),
-(12, 'Project Proposal(1).docx', 20002, 8, 1),
-(13, 'ProjectProposal Group Project 2013.docx', 20002, 8, 1),
-(14, 'Skills Analysis Sheet (GP).doc', 20002, 8, 1),
-(16, 'Introduction-to-project-management(1).ppt', 20002, 8, 3),
-(18, 'ProjectProposal Group Project 2013.docx', 20002, 8, 3),
-(49, 'group3_report.pdf', 20002, 8, 28),
-(50, 'group3_report.pdf', 20002, 8, 2),
-(51, 'Screenshot (49).png', 20002, 18, 29),
-(52, 'Screenshot (50).png', 20002, 18, 29),
-(53, 'Screenshot (51).png', 20002, 18, 29);
-
 -- --------------------------------------------------------
 
 --
@@ -232,19 +154,6 @@ CREATE TABLE `grades` (
   `std_id` int(10) NOT NULL,
   `course_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `grades`
---
-
-INSERT INTO `grades` (`grade_id`, `grade`, `marks`, `date`, `std_id`, `course_id`) VALUES
-(1, 'A+', 89, '2020-02-04 09:02:31', 20204, 8),
-(2, 'A-', 70, '2020-02-04 09:02:37', 20204, 8),
-(3, 'G', 0, '2020-02-04 09:03:51', 20204, 8),
-(4, '-', 110, '2020-02-04 09:04:02', 20204, 8),
-(5, 'A+', 100, '2020-02-04 09:04:32', 20204, 8),
-(6, 'A+', 90, '2020-02-04 09:07:55', 20203, 8),
-(7, 'A+', 90, '2020-02-04 09:08:01', 20204, 8);
 
 -- --------------------------------------------------------
 
@@ -262,12 +171,12 @@ CREATE TABLE `programs` (
 --
 
 INSERT INTO `programs` (`program_id`, `name`) VALUES
-(1, 'Network Engineering'),
-(2, 'Software Engineering'),
-(3, 'BBA'),
-(4, 'MBA'),
-(5, 'Environmental Science'),
-(6, 'A-Level');
+(10, 'Computing'),
+(11, 'BBA'),
+(12, 'MBA'),
+(13, 'Software Engineering'),
+(14, 'Network Engineering'),
+(15, 'A Level');
 
 -- --------------------------------------------------------
 
@@ -285,14 +194,12 @@ CREATE TABLE `program_courses` (
 --
 
 INSERT INTO `program_courses` (`program_id`, `course_id`) VALUES
-(1, 5),
-(1, 1),
-(1, 9),
-(1, 11),
-(1, 3),
-(2, 14),
-(1, 9),
-(2, 18);
+(13, 25),
+(14, 23),
+(14, 24),
+(14, 25),
+(14, 27),
+(13, 27);
 
 -- --------------------------------------------------------
 
@@ -318,9 +225,12 @@ CREATE TABLE `staffs` (
 --
 
 INSERT INTO `staffs` (`stf_id`, `firstname`, `surname`, `email`, `phone`, `birthdate`, `gender`, `address`, `password`, `profile_img`) VALUES
-(20001, 'Deepak', 'Karna', 'deepak.karna@gmail.com', '9810111213', '1880-08-08', 'Male', 'Jorpati', '$2y$10$vJjMDKpb235LkSAZmRR9yudmWGoQuVNM4o/qGmunM7jEkudv6Dkei', 'default.png'),
-(20002, 'Ganesh', 'Khatri', 'ganesh.khatri@gmail.com', '9848737286', '1890-09-19', 'Male', 'Thapagaun', '$2y$10$xDhRG8BxfmqLgLrF36y0QuaQiw4mpL9FzJ4Te.bO/FKAFz974SYyu', '5e415f39211b74.81479658.jpg'),
-(20003, 'Niresh', 'Dhakal', 'niresh@gmail.com', '9821912151', '2020-02-14', 'Male', 'Narayantar', '$2y$10$ddTP6aiccwKC6NdluqoBheWL8eZ5hMNvGrWf5YGM56yHpQAuV7nmC', '5e3a5848127cc2.37727395.jpg');
+(20001, 'Deepak', 'Karna', 'deepak.karna@gmail.com', '0000000', '1880-08-08', 'Male', 'Jorpati', '$2y$10$vJjMDKpb235LkSAZmRR9yudmWGoQuVNM4o/qGmunM7jEkudv6Dkei', '5f0c2fb1ef31b2.50541877.jpg'),
+(20002, 'Ganesh', 'Khatri', 'ganesh.khatri@gmail.com', '0000000', '1890-09-19', 'Male', 'Thapagaun', '$2y$10$xDhRG8BxfmqLgLrF36y0QuaQiw4mpL9FzJ4Te.bO/FKAFz974SYyu', '5e415f39211b74.81479658.jpg'),
+(20003, 'Niresh', 'Dhakal', 'niresh@gmail.com', '0000000', '2020-02-14', 'Male', 'Narayantar', '$2y$10$ddTP6aiccwKC6NdluqoBheWL8eZ5hMNvGrWf5YGM56yHpQAuV7nmC', '5e3a5848127cc2.37727395.jpg'),
+(20008, 'Indra', 'Basnet', 'indra.basnet@gmail.com', '0000000', '2020-07-17', 'Male', 'Kathmandu', '$2y$10$MzWCnZaGCmqS7URiQzpu8unjuzNNfUnRLxW44jUQMaEC0sn1SIF.K', '5f0c2f5486a594.93584094.jpeg'),
+(20009, 'Khagendra', 'Shah', 'khshah@gmail.com', '0000000', '2020-06-10', 'Male', 'Kathmandu', '$2y$10$c.xPfu7EQIK/IKK4byuTYO/nn3a65jcamaV10sO2pXJT.TXmreqNW', '5f0c2f2362f158.79950763.jpg'),
+(20010, 'Anita', 'Gurung', 'anita@gmail.com', '0000000', '2020-06-01', 'Female', 'Kathmandu', '$2y$10$RV93oiBCaQFGnzND5dtNQ.eX66q9wZHQKQf5YG7VgLRAXmuU1yNzW', '5f0c2e70d4a715.89879565.jpg');
 
 -- --------------------------------------------------------
 
@@ -338,12 +248,13 @@ CREATE TABLE `staff_courses` (
 --
 
 INSERT INTO `staff_courses` (`stf_id`, `course_id`) VALUES
-(20002, 8),
-(20001, 2),
-(20001, 11),
-(20003, 2),
-(20001, 3),
-(20002, 18);
+(20002, 27),
+(20002, 28),
+(20003, 24),
+(20008, 23),
+(20001, 23),
+(20010, 25),
+(20009, 26);
 
 -- --------------------------------------------------------
 
@@ -390,19 +301,18 @@ CREATE TABLE `student_courses` (
 --
 
 INSERT INTO `student_courses` (`std_id`, `course_id`) VALUES
-(20202, 5),
-(20202, 9),
-(20204, 6),
-(20203, 6),
-(20203, 8),
-(20204, 11),
-(20202, 11),
-(20203, 11),
-(20204, 8),
-(20204, 8),
-(20202, 8),
-(20207, 8),
-(20203, 18);
+(20204, 23),
+(20202, 23),
+(20203, 23),
+(20207, 23),
+(20204, 24),
+(20202, 24),
+(20203, 24),
+(20207, 24),
+(20204, 25),
+(20202, 25),
+(20203, 25),
+(20207, 25);
 
 -- --------------------------------------------------------
 
@@ -416,14 +326,6 @@ CREATE TABLE `uploads` (
   `course_id` int(10) NOT NULL,
   `file` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `uploads`
---
-
-INSERT INTO `uploads` (`upd_id`, `std_id`, `course_id`, `file`) VALUES
-(20, 20203, 8, 'group3_report.pdf'),
-(23, 20203, 8, 'CSY2027 Group Project Body-2014-15(1)(1).doc');
 
 --
 -- Indexes for dumped tables
@@ -549,13 +451,13 @@ ALTER TABLE `uploads`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `admin_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `admin_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `announcements`
 --
 ALTER TABLE `announcements`
-  MODIFY `ann_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ann_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `assessments`
@@ -567,13 +469,13 @@ ALTER TABLE `assessments`
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `attend_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `attend_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `course_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `course_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `course_topics`
@@ -585,37 +487,37 @@ ALTER TABLE `course_topics`
 -- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
-  MODIFY `file_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `file_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `grades`
 --
 ALTER TABLE `grades`
-  MODIFY `grade_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `grade_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `programs`
 --
 ALTER TABLE `programs`
-  MODIFY `program_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `program_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `staffs`
 --
 ALTER TABLE `staffs`
-  MODIFY `stf_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20005;
+  MODIFY `stf_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20011;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `std_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20209;
+  MODIFY `std_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20211;
 
 --
 -- AUTO_INCREMENT for table `uploads`
 --
 ALTER TABLE `uploads`
-  MODIFY `upd_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `upd_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Constraints for dumped tables
